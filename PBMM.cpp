@@ -1,6 +1,13 @@
 #include <iostream>
 
+
+//prototypes
 void memoryManager(int memSize, int frameSize);
+int allocate(int allocSize, int pid);
+int deallocate(int pid);
+int write(int pid, int logical_address);
+int read(int pid, int logical_address);
+void printMemory();
 
 
 int main()
@@ -11,6 +18,40 @@ int main()
 
 
 void memoryManager(int memSize, int frameSize){
+
+
+
+
+}
+
+int allocate(int allocSize, int pid){
+
+
+
+}
+
+int deallocate(int pid){
+
+
+
+}
+
+int write(int pid, int logical_address){
+
+
+
+
+}
+
+
+int read(int pid, int logical_address){
+
+
+
+
+}
+
+void printMemory(){
 
 
 
