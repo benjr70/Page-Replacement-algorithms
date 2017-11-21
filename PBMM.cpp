@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include "Charlist.h"
 
 using namespace std;
 
@@ -13,8 +14,9 @@ int read(int pid, int logical_address);
 void printMemory();
 
 //global varibles
-
-
+char* phy_mem;
+Charlist FreeFrameList;
+Charlist ProcessList;
 
 int main()
 {
@@ -62,35 +64,38 @@ do{
         default  : cout << "command dose not exist \n";
     }
 }while(line != "Exit");
-
+delete [] phy_mem;
 	return 0;
 }
 
 
 void memoryManager(int memSize, int frameSize){
 
-cout << "in Memory Manger memSize: " << memSize << "\nFramSize: " << frameSize << "\n";
-
-
-
+    cout << "in Memory Manger\nmemSize: " << memSize << "\nFramSize: " << frameSize << "\n";
+    phy_mem = new char[memSize];
+    for(int x = 0; x < sizeof(phy_mem); x++){
+        phy_mem[x] = '0';
+	FreeFrameList.appendNode(x);
+    }
 
 }
 
 int allocate(int allocSize, int pid){
 
-cout << "In allocate, allocSize: " << allocSize << "\npid: " << pid << "\n";
+cout << "In allocate\nallocSize: " << allocSize << "\npid: " << pid << "\n";
+phy_mem[0] = '1';
 
 }
 
 int deallocate(int pid){
 
-cout << "in deallocate, pid: " << pid << "\n";
+cout << "in deallocate\npid: " << pid << "\n";
 
 }
 
 int write(int pid, int logical_address){
 
-cout << "in write pid: " << pid << "logical_address" << logical_address << "\n";
+cout << "in write\npid: " << pid << "logical_address" << logical_address << "\n";
 
 
 }
@@ -98,14 +103,20 @@ cout << "in write pid: " << pid << "logical_address" << logical_address << "\n";
 
 int read(int pid, int logical_address){
 
-cout << "in read pid: " << pid << "logical_address: " << logical_address << "\n";
+cout << "in read\npid: " << pid << "logical_address: " << logical_address << "\n";
 
 }
 
 void printMemory(){
 
-cout << "in printmemory\n";
-
-
+    cout << "Physical memory space\n";
+    for(int x = 0; x < sizeof(phy_mem); x++){
+        cout <<phy_mem[x] << " ";
+    }
+    cout << "\nFree Frame List\n";
+    FreeFrameList.displayList();
+    cout << "\nProcess List\n";
+    ProcessList.displayList();
+    cout << "\n";
 }
 
