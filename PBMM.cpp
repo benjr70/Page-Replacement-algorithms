@@ -89,21 +89,29 @@ int allocate(int allocSize, int pid){
 	ProcessNode->Size = allocSize; 
 	for(int x = 0; x < allocSize; x++){
 		ProcessNode->PT[x] = FreeFrameList.getRand();
-		phy_mem[ProcessNode->PT[x]] = '1';
+		//phy_mem[ProcessNode->PT[x]] = '1';
 		FreeFrameList.deleteNode(ProcessNode->PT[x]);
 	}
 }
 
 int deallocate(int pid){
 
-cout << "in deallocate\npid: " << pid << "\n";
+	cout << "in deallocate\npid: " << pid << "\n";
+	ListNode *ProcessNode;
+	ProcessNode = ProcessList.getnode(pid);
+	for(int x = 0; x < ProcessNode->Size; x++){
+		FreeFrameList.appendNode(ProcessNode->PT[x]);
+	}
 
 }
 
 int write(int pid, int logical_address){
 
-cout << "in write\npid: " << pid << "logical_address" << logical_address << "\n";
-
+cout << "in write\npid: " << pid << "\nlogical_address" << logical_address << "\n";
+	ListNode *ProcessNode;
+	ProcessNode = ProcessList.getnode(pid);
+	phy_mem[ProcessNode->PT[logical_address]] = '1';	
+	
 
 }
 
@@ -111,7 +119,9 @@ cout << "in write\npid: " << pid << "logical_address" << logical_address << "\n"
 int read(int pid, int logical_address){
 
 cout << "in read\npid: " << pid << "logical_address: " << logical_address << "\n";
-
+	ListNode *ProcessNode;
+	ProcessNode = ProcessList.getnode(pid);
+	cout << phy_mem[ProcessNode->PT[logical_address]] << "\n";	
 }
 
 void printMemory(){
