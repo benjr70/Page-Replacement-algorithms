@@ -73,18 +73,25 @@ void memoryManager(int memSize, int frameSize){
 
     cout << "in Memory Manger\nmemSize: " << memSize << "\nFramSize: " << frameSize << "\n";
     phy_mem = new char[memSize];
-    for(int x = 0; x < sizeof(phy_mem); x++){
+    for(int x = 0; x < memSize; x++){
         phy_mem[x] = '0';
 	FreeFrameList.appendNode(x);
     }
-
+	phy_mem[memSize + 1] = '\0'; //sizeof() does not work when dynamic so this marks the array end with \0
 }
 
 int allocate(int allocSize, int pid){
 
-cout << "In allocate\nallocSize: " << allocSize << "\npid: " << pid << "\n";
-phy_mem[0] = '1';
-
+	cout << "In allocate\nallocSize: " << allocSize << "\npid: " << pid << "\n";
+	ListNode *ProcessNode;
+	ProcessList.appendNode(pid);
+	ProcessNode = ProcessList.getnode(pid);
+	ProcessNode->Size = allocSize; 
+	for(int x = 0; x < allocSize; x++){
+		ProcessNode->PT[x] = FreeFrameList.getRand();
+		phy_mem[ProcessNode->PT[x]] = '1';
+		FreeFrameList.deleteNode(ProcessNode->PT[x]);
+	}
 }
 
 int deallocate(int pid){
@@ -109,14 +116,16 @@ cout << "in read\npid: " << pid << "logical_address: " << logical_address << "\n
 
 void printMemory(){
 
-    cout << "Physical memory space\n";
-    for(int x = 0; x < sizeof(phy_mem); x++){
-        cout <<phy_mem[x] << " ";
-    }
-    cout << "\nFree Frame List\n";
-    FreeFrameList.displayList();
-    cout << "\nProcess List\n";
-    ProcessList.displayList();
-    cout << "\n";
+	cout << "Physical memory space\n";
+	int x = 0;
+	while(phy_mem[x] != '\0'){
+	cout <<phy_mem[x] << " ";
+	x++;
+	}
+	cout << "\nFree Frame List\n";
+	FreeFrameList.displayList();
+	cout << "\nProcess List\n";
+	ProcessList.displayList();
+	cout << "\n";
 }
 

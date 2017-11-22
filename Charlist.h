@@ -7,30 +7,39 @@
 #define Charlist_H
 
 
-class Charlist
+
+// Declare a structure for the list
+struct ListNode
 {
-    private:
-   // Declare a structure for the list
-   struct ListNode
-   {
-      int value;           // The value in this node
-      struct ListNode *next;  // To point to the next node
-   };
+	int value;              // The value in this node
+	int Size;
+	int* PT = new int[Size]; 
+	struct ListNode *next;  // To point to the next node
+};
 
-   ListNode *head;
+class Charlist
+{  
+ 
 
-   public:
-       // Constructor
-        Charlist();
+private:
+  
 
 
-       // Destructor
-        ~Charlist();
+   
 
-   // Linked list operations
-   void appendNode(int);
-   void insertNode(int);
-   void deleteNode(int);
-   void displayList() const;
+public:
+	ListNode *head;
+
+	// Constructor
+	Charlist();
+	// Destructor
+	~Charlist();
+	// Linked list operations
+	void appendNode(int);
+	void insertNode(int);
+	void deleteNode(int);
+	void displayList() const;
+	int  getRand();
+	ListNode* getnode(int pid);
 };
 #endif // Charlist_H

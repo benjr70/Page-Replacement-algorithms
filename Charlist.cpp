@@ -6,6 +6,7 @@
 #include "Charlist.h"
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
 
 using namespace std;
 
@@ -178,9 +179,48 @@ void Charlist::displayList() const
       nodePtr = nodePtr->next;
    }
 }
+//************************************************************
+// returns node of the pid given
+//************************************************************
+ListNode* Charlist::getnode(int pid) {
 
 
+	if (head == NULL) {
+		return head;
+	}
+	ListNode *nodePtr = head;
 
+	while (nodePtr != NULL) {
+			
+			if (nodePtr->value ==  pid) {
+				return nodePtr;
+			}
+			nodePtr = nodePtr->next;
+		}
+
+		return NULL;
+	
+
+}
+
+int  Charlist::getRand(){
+
+	int count = 0;
+	ListNode *nodePtr = head;
+	while (nodePtr != NULL) {
+		count++;
+		nodePtr = nodePtr->next;
+	}
+	
+	nodePtr = head;
+	int randnum = rand() % count;
+	for(int x = 0 ; x < randnum; x++){
+	nodePtr = nodePtr->next;
+	}
+	
+	return nodePtr->value;
+	
+}
 
 
 //************************************************************
