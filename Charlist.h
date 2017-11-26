@@ -40,6 +40,7 @@ public:
 	void deleteNode(int);
 	void displayList() const;
 	int  getRand();
+	int getNumofFreeFrames();
 	ListNode* getnode(int pid);
 };
 #endif // Charlist_H

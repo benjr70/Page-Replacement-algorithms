@@ -222,6 +222,19 @@ int  Charlist::getRand(){
 	
 }
 
+int Charlist::getNumofFreeFrames(){
+
+	int count = 0;
+	ListNode *nodePtr = head;
+	while (nodePtr != NULL) {
+		count++;
+		nodePtr = nodePtr->next;
+	}
+	
+return count;
+
+
+}
 
 //************************************************************
 //destructor
