@@ -12,18 +12,22 @@ int deallocate(int pid);
 int write(int pid, int logical_address);
 int read(int pid, int logical_address);
 void printMemory();
+void PrintPageFaults();
 
 //global varibles
 char* phy_mem;
 Charlist FreeFrameList;
 Charlist ProcessList;
+int PageFaults = 0;
+bool FIFO = false;
+bool LRU =false;
 
 int main()
 {
 	string line;
 	int arg1 = -99;
 	int arg2 = -99;
-    char temp[50];
+	char temp[50];
 do{
 	getline(cin,line);
     int index = 2;
@@ -45,24 +49,45 @@ do{
     temp[tempI] = '\0';
     arg2 = atoi(temp);
 
+        if(line[0] == 'M'){
+	memoryManager(arg1, arg2);
+	}
+	else if(line[0] =='A'){
+	 allocate(arg1, arg2);
+	}            
+        else if(line[0] == 'W'){
+	write(arg1, arg2);
+        }    
+       	else if(line[0] == 'R'){
+	read(arg1, arg2);
+        }    
+        else if(line[0] == 'D'){
+	deallocate(arg1);
+        }    
+        else if(line[0] == 'P' && line != "PRINT PF" ){
+	printMemory();
+        }
+	else if(line == "SET FIFO"){
+		LRU = false;
+		FIFO = true;
+		cout << "FIFO algorithm has been set\n";
+		
+	}	
+	else if(line == "SET LRU"){
+		FIFO = false;
+		LRU = true;
+		cout << "LRU algorithm has been set\n";
 
-    switch(line[0]){
-        case 'M' : memoryManager(arg1, arg2);
-            break;
-        case 'A' : allocate(arg1, arg2);
-            break;
-        case 'W' : write(arg1, arg2);
-            break;
-        case 'R' : read(arg1, arg2);
-            break;
-        case 'D' : deallocate(arg1);
-            break;
-        case 'P' : printMemory();
-            break;
-        case 'E' :
-            break;
-        default  : cout << "command dose not exist \n";
-    }
+	}
+	else if(line == "PRINT PF"){
+		PrintPageFaults();
+	}    
+        else{ 
+		if(line != "Exit"){   
+        		cout << "command dose not exist \n";
+		}
+  	}
+
 }while(line != "Exit");
 delete [] phy_mem;
 return 0;
@@ -92,7 +117,12 @@ int allocate(int allocSize, int pid){
 
 	//cout << "In allocate\nallocSize: " << allocSize << "\npid: " << pid << "\n";
 	if(allocSize > FreeFrameList.getNumofFreeFrames()){
-		return -1;
+		if(FIFO){
+
+		}
+		if(LRU){
+		
+		}
 	}
 	ListNode *ProcessNode;
 	ProcessList.appendNode(pid);
@@ -171,5 +201,14 @@ void printMemory(){
 	cout << "\nProcess List\n";
 	ProcessList.displayList();
 	cout << "\n";
+}
+//*******************************************
+// prints out page faults
+//
+//*******************************************
+void PrintPageFaults(){
+
+cout << "Page Faults: " << PageFaults <<"\n";
+
 }
 
