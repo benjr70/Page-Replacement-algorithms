@@ -236,6 +236,25 @@ return count;
 
 }
 
+
+void Charlist::getoldestPage(int &pid, int &Frame){
+
+	ListNode *nodePtr = head;
+	int smallesttime = 2147483646;
+
+	while (nodePtr != NULL) {
+		for(int x = 0; x < nodePtr->Size; x++){
+			if(nodePtr->time[x] < smallesttime && nodePtr->PT[x] != -99){
+			smallesttime = nodePtr->time[x];
+			pid = nodePtr-> value;
+			Frame = x;
+			}
+		}
+		nodePtr = nodePtr->next;
+	}
+
+}
+
 //************************************************************
 //destructor
 //this deletes the whole list

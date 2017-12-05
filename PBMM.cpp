@@ -2,7 +2,8 @@
 #include <string>
 #include <cstdlib>
 #include "Charlist.h"
-
+#include <sys/time.h>
+#include <time.h>
 using namespace std;
 
 //prototypes
@@ -21,6 +22,7 @@ Charlist ProcessList;
 int PageFaults = 0;
 bool FIFO = false;
 bool LRU =false;
+struct timeval start, end;
 
 int main()
 {
@@ -28,6 +30,7 @@ int main()
 	int arg1 = -99;
 	int arg2 = -99;
 	char temp[50];
+gettimeofday(&start, NULL);
 do{
 	getline(cin,line);
     int index = 2;
@@ -89,6 +92,7 @@ do{
   	}
 
 }while(line != "Exit");
+
 delete [] phy_mem;
 return 0;
 }
@@ -115,25 +119,41 @@ void memoryManager(int memSize, int frameSize){
 //*******************************************
 int allocate(int allocSize, int pid){
 
+ListNode *ProcessNode;
 	//cout << "In allocate\nallocSize: " << allocSize << "\npid: " << pid << "\n";
 	if(allocSize > FreeFrameList.getNumofFreeFrames()){
 		if(FIFO){
-
+			for(int x = FreeFrameList.getNumofFreeFrames(); x < allocSize; x++){
+			int pid, Freeframe;
+			ProcessList.getoldestPage(pid, Freeframe);	
+			ProcessNode = ProcessList.getnode(pid);	
+			FreeFrameList.appendNode(ProcessNode->PT[Freeframe]);
+			cout << "frame removed" << ProcessNode->PT[Freeframe] << "pid" << pid << "\n";
+			ProcessNode->PT[Freeframe] = -99;
+			PageFaults++;
+			}
 		}
-		if(LRU){
+		else if(LRU){
 		
 		}
+		else{
+			return -1;
+		}
 	}
-	ListNode *ProcessNode;
+	//ListNode *ProcessNode;
 	ProcessList.appendNode(pid);
 	ProcessNode = ProcessList.getnode(pid);
 	ProcessNode->Size = allocSize; 
 
 	for(int x = 0; x < allocSize; x++){
 		ProcessNode->PT[x] = FreeFrameList.getRand();
-		//phy_mem[ProcessNode->PT[x]] = '1';
+		phy_mem[ProcessNode->PT[x]] = '1';
+		gettimeofday(&end, NULL);	
+		ProcessNode->time[x] = ((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec));
+		//cout << ProcessNode->time[x] << " ";
 		FreeFrameList.deleteNode(ProcessNode->PT[x]);
 	}
+
 	return 1;
 }
 //*******************************************
@@ -150,7 +170,9 @@ int deallocate(int pid){
 		return -1;
 	}
 	for(int x = 0; x < ProcessNode->Size; x++){
-		FreeFrameList.appendNode(ProcessNode->PT[x]);
+		if( ProcessNode->PT[x] != -99){
+			FreeFrameList.appendNode(ProcessNode->PT[x]);
+		}
 	}
 	ProcessList.deleteNode(pid);
 	return 1;

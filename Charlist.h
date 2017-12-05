@@ -14,6 +14,7 @@ struct ListNode
 	int value;              // The value in this node
 	int Size;
 	int* PT = new int[Size]; 
+	int* time = new int[Size];
 	struct ListNode *next;  // To point to the next node
 };
 
@@ -40,6 +41,7 @@ public:
 	void deleteNode(int);
 	void displayList() const;
 	int  getRand();
+	void getoldestPage(int &pids, int &Frame);
 	int getNumofFreeFrames();
 	ListNode* getnode(int pid);
 };
