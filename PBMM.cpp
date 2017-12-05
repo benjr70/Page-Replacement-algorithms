@@ -4,6 +4,8 @@
 #include "Charlist.h"
 #include <sys/time.h>
 #include <time.h>
+#include "rolfb2.h" 
+
 using namespace std;
 
 //prototypes
