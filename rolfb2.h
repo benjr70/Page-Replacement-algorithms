@@ -12,7 +12,10 @@
 #ifndef rolfb2_H
 #define rolfb2_H
 
-typedef float Element300;
+struct stackNode{
+	int pid;
+	int logicalAdress;
+};
 
 class Stack300{
 
@@ -22,14 +25,14 @@ public:
     Stack300(Stack300 &);           //copy constructor, accepts stack300 object and creates a new stack with the same values as the input object.
     ~Stack300();                    //destructor, deletes the stack.
 
-    void push300(const Element300); // requires an input of element300 type, then pushes that to the top of the stack.
-    Element300 pop300();            // pops of the top element of the stack and then returns that value.
+    void push300(const stackNode); // requires an input of element300 type, then pushes that to the top of the stack.
+    stackNode* pop300();            // pops of the top element of the stack and then returns that value.
     void viewTB300();               // displays the stack from top to bottom.
     void viewBT300();               // displays the stack from bottom to top.
 
 private:
     const int MAX_STACK;
-    Element300 *stackArray;
+    stackNode *stackArray;
     int top;
 
 };

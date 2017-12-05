@@ -21,6 +21,7 @@ void PrintPageFaults();
 char* phy_mem;
 Charlist FreeFrameList;
 Charlist ProcessList;
+Stack300 LRUstack;
 int PageFaults = 0;
 bool FIFO = false;
 bool LRU =false;
@@ -122,6 +123,7 @@ void memoryManager(int memSize, int frameSize){
 int allocate(int allocSize, int pid){
 
 ListNode *ProcessNode;
+
 	//cout << "In allocate\nallocSize: " << allocSize << "\npid: " << pid << "\n";
 	if(allocSize > FreeFrameList.getNumofFreeFrames()){
 		if(FIFO){
@@ -136,7 +138,15 @@ ListNode *ProcessNode;
 			}
 		}
 		else if(LRU){
-		
+			for(int x = FreeFrameList.getNumofFreeFrames(); x < allocSize; x++){	
+			int pid, Freeframe;
+			//get pid and freeframe from stack		
+			ProcessNode = ProcessList.getnode(pid);	
+			FreeFrameList.appendNode(ProcessNode->PT[Freeframe]);
+			cout << "frame removed" << ProcessNode->PT[Freeframe] << "pid" << pid << "\n";
+			ProcessNode->PT[Freeframe] = -99;
+			PageFaults++;
+			}
 		}
 		else{
 			return -1;
@@ -152,6 +162,7 @@ ListNode *ProcessNode;
 		phy_mem[ProcessNode->PT[x]] = '1';
 		gettimeofday(&end, NULL);	
 		ProcessNode->time[x] = ((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec));
+		
 		//cout << ProcessNode->time[x] << " ";
 		FreeFrameList.deleteNode(ProcessNode->PT[x]);
 	}

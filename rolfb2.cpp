@@ -25,10 +25,10 @@ using namespace std;
 ***  IN/OUT ARGS   : none                                         ***
 ***  RETURN        : none                                         ***
 ********************************************************************/
-Stack300::Stack300():MAX_STACK(3),stackArray(NULL)
+Stack300::Stack300():MAX_STACK(100),stackArray(NULL)
 {
     top = -1;
-    stackArray = new Element300[MAX_STACK];
+    stackArray = new stackNode[MAX_STACK];
 
     if( stackArray == NULL){
         cout<<"Error creating stack";
@@ -44,16 +44,17 @@ Stack300::Stack300():MAX_STACK(3),stackArray(NULL)
 ***  IN/OUT ARGS   : none                                         ***
 ***  RETURN        : none                                         ***
 ********************************************************************/
+/*
 Stack300::Stack300(const int x):MAX_STACK(x),stackArray(NULL)
 {
     top = -1;
-    stackArray = new Element300[MAX_STACK]; 
+    stackArray = new stackNode[MAX_STACK]; 
 
     if( stackArray == NULL){
         cout<<"Error creating stack";
     }
 }
-
+*/
 /********************************************************************
 ***  FUNCTION Stack300                                            ***
 *********************************************************************
@@ -63,13 +64,14 @@ Stack300::Stack300(const int x):MAX_STACK(x),stackArray(NULL)
 ***  IN/OUT ARGS   : none                                         ***
 ***  RETURN        : none                                         ***
 ********************************************************************/
+/*
 Stack300::Stack300(Stack300& old):MAX_STACK(old.MAX_STACK),stackArray(NULL)
 {
-    stackArray = new Element300[MAX_STACK];
+    stackArray = new stackNode[MAX_STACK];
     top = -1;
 
 Stack300 t(old.MAX_STACK);
-Element300 x = 0;
+//Element300 x = 0;
 
 while(old.top != -1)
     {
@@ -90,7 +92,7 @@ while( t.top != -1)
     }
 
 }
-
+*/
 /********************************************************************
 ***  FUNCTION Stack300                                            ***
 *********************************************************************
@@ -100,6 +102,7 @@ while( t.top != -1)
 ***  IN/OUT ARGS   : none                                         ***
 ***  RETURN        : none                                         ***
 ********************************************************************/
+/*
 Stack300::~Stack300()
 {
 
@@ -110,7 +113,7 @@ while(top != -1)
 
 delete stackArray;
 }
-
+*/
 /********************************************************************
 ***  FUNCTION push300                                             ***
 *********************************************************************
@@ -120,7 +123,7 @@ delete stackArray;
 ***  IN/OUT ARGS   : none                                         ***
 ***  RETURN        : none                                         ***
 ********************************************************************/
-void Stack300::push300(const Element300 item)
+void Stack300::push300(const stackNode item)
 {
 
 if(top < MAX_STACK - 1)
@@ -142,19 +145,19 @@ else
 ***  IN/OUT ARGS   : none                                         ***
 ***  RETURN        : the popped value                             ***
 ********************************************************************/
-Element300 Stack300::pop300()
+stackNode* Stack300::pop300()
 {
-Element300 x = 0;
+stackNode *tempNode;
 
     if(top != -1)
     {
-        x = stackArray[top];
+        tempNode = *stackArray[top];
         top = top - 1;
     }
     else
         cout<<"stack empty";
 
-return x;
+return tempNode;
 }
 
 /********************************************************************
@@ -166,6 +169,7 @@ return x;
 ***  IN/OUT ARGS   : none                                         ***
 ***  RETURN        : none                                         ***
 ********************************************************************/
+/*
 void Stack300 :: viewTB300()
 {
 Stack300 temp(MAX_STACK);
@@ -200,6 +204,7 @@ while(top < tophold)//puts values of temp back into the stack
 ***  IN/OUT ARGS   : none                                         ***
 ***  RETURN        : none                                         ***
 ********************************************************************/
+/*
 void Stack300::viewBT300()
 {
 Stack300 temp(MAX_STACK);
@@ -226,3 +231,5 @@ while(top < tophold)//puts temp back into stack while printing the stack
 cout<<"TOP";
 
 }
+*/
+
