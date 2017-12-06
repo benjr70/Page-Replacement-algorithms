@@ -1,10 +1,4 @@
 /********************************************************************
-***  NAME       :  Ben Rolf      ***
-***  CLASS      :  CSc 300       ***
-***  ASSIGNMENT :  Assignment 2  ***
-***  DUE DATE   :  10/7/15       ***
-***  INSTRUCTOR :  GAMRADT       ***
-*********************************************************************
 ***  DESCRIPTION :This class creates a dynamic array stack with functions               ***
 *** for push, pop , view from top from bottom, view bottom to top, destructor, default  ***
 *** constructor, parameterized constructor, copy constructor.                           ***

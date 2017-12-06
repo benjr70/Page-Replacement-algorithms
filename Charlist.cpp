@@ -202,7 +202,9 @@ ListNode* Charlist::getnode(int pid) {
 	
 
 }
-
+//******************************************
+// finds a random free frame a page to be assigned to
+//*******************************************
 int  Charlist::getRand(){
 
 	int count = 0;
@@ -221,7 +223,9 @@ int  Charlist::getRand(){
 	return nodePtr->value;
 	
 }
-
+//*********************************
+// counts the returns the number of free frames
+//************************************************
 int Charlist::getNumofFreeFrames(){
 
 	int count = 0;
@@ -235,7 +239,10 @@ return count;
 
 
 }
-
+//**************************************************
+// finds the oldest page and returns the pid and logical address
+// for the FIFO replacement algorthim
+//**************************************************
 
 void Charlist::getoldestPage(int &pid, int &Frame){
 

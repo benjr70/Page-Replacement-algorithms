@@ -132,7 +132,7 @@ ListNode *ProcessNode;
 			ProcessList.getoldestPage(pid, Freeframe);	
 			ProcessNode = ProcessList.getnode(pid);	
 			FreeFrameList.appendNode(ProcessNode->PT[Freeframe]);
-			cout << "frame removed" << ProcessNode->PT[Freeframe] << "pid" << pid << "\n";
+			//cout << "frame removed" << ProcessNode->PT[Freeframe] << "pid" << pid << "\n";
 			ProcessNode->PT[Freeframe] = -99;
 			PageFaults++;
 			}
@@ -144,7 +144,7 @@ ListNode *ProcessNode;
 			//get pid and freeframe from stack		
 			ProcessNode = ProcessList.getnode(pid);	
 			FreeFrameList.appendNode(ProcessNode->PT[Freeframe]);
-			cout << "frame removed" << ProcessNode->PT[Freeframe] << "pid" << pid << "\n";
+			//cout << "frame removed" << ProcessNode->PT[Freeframe] << "pid" << pid << "\n";
 			ProcessNode->PT[Freeframe] = -99;
 			PageFaults++;
 			}

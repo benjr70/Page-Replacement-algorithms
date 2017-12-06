@@ -1,0 +1,3 @@
+complie with: g++ -o  PBMM  PBMM.cpp Charlist.cpp Charlist.h rolfb2.cpp rolfb2.h
+run with: ./PBMM
+
