@@ -132,8 +132,9 @@ if(top < MAX_STACK - 1){
 	stackArray[top].pid = pid;
 	stackArray[top].logicalAddress = logicaladdress;
 }
-else
-    cout<<"stack is full";
+else{
+    //cout<<"stack is full";
+}
 
 }
 
@@ -155,17 +156,37 @@ stackNode *tempNode;
 		tempNode->logicalAddress = stackArray[top].logicalAddress;
 		top = top - 1;
     }
-    else
-        cout<<"stack empty";
+    else{
+       // cout<<"stack empty";
+	}
 
 return tempNode;
 }
 
 
 void Stack300::getLRU(int &pid, int &logicaladdress){
+int tophold = top;
+Stack300 temp;
+stackNode *tempNode;
 
+while(top + 1 > 0)//while loop that puts stacks into temp stack
+    {
+    tempNode = pop300();
+    temp.push300(tempNode->pid, tempNode->logicalAddress);
 
+    }
 
+	tempNode = temp.pop300();
+	pid = tempNode->pid;
+	logicaladdress = tempNode->logicalAddress;
+
+while(top < tophold)//puts temp back into stack while printing the stack
+    {
+
+    tempNode = temp.pop300();
+    push300(tempNode->pid, tempNode->logicalAddress);
+
+    }
 
 
 }

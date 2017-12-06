@@ -140,7 +140,8 @@ ListNode *ProcessNode;
 		else if(LRU){
 			for(int x = FreeFrameList.getNumofFreeFrames(); x < allocSize; x++){	
 			int pid, Freeframe;
-			LRUstack.getLRU(pid, Freeframe);	
+			LRUstack.getLRU(pid, Freeframe);
+			//get pid and freeframe from stack		
 			ProcessNode = ProcessList.getnode(pid);	
 			FreeFrameList.appendNode(ProcessNode->PT[Freeframe]);
 			cout << "frame removed" << ProcessNode->PT[Freeframe] << "pid" << pid << "\n";
@@ -202,6 +203,10 @@ int write(int pid, int logical_address){
 	if(ProcessNode == NULL){
 		return -1;
 	}
+	if(ProcessNode->PT[logical_address] == -99){
+		PageFaults++;
+		return -1;
+	}
 	phy_mem[ProcessNode->PT[logical_address]] = '1';	
 	return 1;
 }
@@ -215,6 +220,10 @@ int read(int pid, int logical_address){
 	ListNode *ProcessNode;
 	ProcessNode = ProcessList.getnode(pid);
 	if(ProcessNode == NULL){
+		return -1;
+	}
+	if(ProcessNode->PT[logical_address] == -99){
+		PageFaults++;
 		return -1;
 	}
 	cout << phy_mem[ProcessNode->PT[logical_address]] << "\n";
