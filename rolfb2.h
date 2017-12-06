@@ -14,21 +14,22 @@
 
 struct stackNode{
 	int pid;
-	int logicalAdress;
+	int logicalAddress;
 };
 
 class Stack300{
 
 public:
     Stack300();                     //constructor, creates a new stack with default size.
-    Stack300(const int);            //user defined size, creates a new stack with any size, you input.
-    Stack300(Stack300 &);           //copy constructor, accepts stack300 object and creates a new stack with the same values as the input object.
-    ~Stack300();                    //destructor, deletes the stack.
+   // Stack300(const int);            //user defined size, creates a new stack with any size, you input.
+   // Stack300(Stack300 &);           //copy constructor, accepts stack300 object and creates a new stack with the same values as the input object.
+   // ~Stack300();                    //destructor, deletes the stack.
 
-    void push300(const stackNode); // requires an input of element300 type, then pushes that to the top of the stack.
+    void push300(int pid, int logicaladdress); // requires an input of element300 type, then pushes that to the top of the stack.
     stackNode* pop300();            // pops of the top element of the stack and then returns that value.
+	void getLRU(int &pid, int &logicaladdress);
     void viewTB300();               // displays the stack from top to bottom.
-    void viewBT300();               // displays the stack from bottom to top.
+   // void viewBT300();               // displays the stack from bottom to top.
 
 private:
     const int MAX_STACK;

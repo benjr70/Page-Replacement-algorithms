@@ -123,14 +123,15 @@ delete stackArray;
 ***  IN/OUT ARGS   : none                                         ***
 ***  RETURN        : none                                         ***
 ********************************************************************/
-void Stack300::push300(const stackNode item)
+void Stack300::push300(int pid, int logicaladdress)
 {
 
-if(top < MAX_STACK - 1)
-    {
-    top++;
-    stackArray[top] = item;
-    }
+
+if(top < MAX_STACK - 1){
+	top++;
+	stackArray[top].pid = pid;
+	stackArray[top].logicalAddress = logicaladdress;
+}
 else
     cout<<"stack is full";
 
@@ -149,10 +150,10 @@ stackNode* Stack300::pop300()
 {
 stackNode *tempNode;
 
-    if(top != -1)
-    {
-        tempNode = *stackArray[top];
-        top = top - 1;
+    if(top != -1){
+     	tempNode->pid = stackArray[top].pid;
+		tempNode->logicalAddress = stackArray[top].logicalAddress;
+		top = top - 1;
     }
     else
         cout<<"stack empty";
@@ -160,6 +161,14 @@ stackNode *tempNode;
 return tempNode;
 }
 
+
+void Stack300::getLRU(int &pid, int &logicaladdress){
+
+
+
+
+
+}
 /********************************************************************
 ***  FUNCTION viewTB300                                           ***
 *********************************************************************
@@ -169,29 +178,18 @@ return tempNode;
 ***  IN/OUT ARGS   : none                                         ***
 ***  RETURN        : none                                         ***
 ********************************************************************/
-/*
+
 void Stack300 :: viewTB300()
 {
-Stack300 temp(MAX_STACK);
+
 int tophold = top;
-Element300 x = 0;
+ stackNode *x;
 
-cout<<"TOP->BOTTOM"<<endl;
-cout<<"TOP->";
 
-while(top + 1 > 0)//while loop that puts the values into temp while printing the values
-    {
-    x = pop300();
-    cout<<x<<"->";
-    temp.push300(x);
-    }
-cout<<"BOTTOM";
+for(int x = 0; x <= top; x++){
 
-while(top < tophold)//puts values of temp back into the stack
-    {
-    x = temp.pop300();
-    push300(x);
-    }
+cout << "pid: " << stackArray[x].pid << " logaddress: " << stackArray[x].logicalAddress <<"\n";
+}
 
 }
 

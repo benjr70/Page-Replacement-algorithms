@@ -140,7 +140,7 @@ ListNode *ProcessNode;
 		else if(LRU){
 			for(int x = FreeFrameList.getNumofFreeFrames(); x < allocSize; x++){	
 			int pid, Freeframe;
-			//get pid and freeframe from stack		
+			LRUstack.getLRU(pid, Freeframe);	
 			ProcessNode = ProcessList.getnode(pid);	
 			FreeFrameList.appendNode(ProcessNode->PT[Freeframe]);
 			cout << "frame removed" << ProcessNode->PT[Freeframe] << "pid" << pid << "\n";
@@ -162,7 +162,7 @@ ListNode *ProcessNode;
 		phy_mem[ProcessNode->PT[x]] = '1';
 		gettimeofday(&end, NULL);	
 		ProcessNode->time[x] = ((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec));
-		
+		LRUstack.push300(pid,x);
 		//cout << ProcessNode->time[x] << " ";
 		FreeFrameList.deleteNode(ProcessNode->PT[x]);
 	}
